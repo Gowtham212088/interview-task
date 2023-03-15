@@ -1,10 +1,18 @@
-import './App.css';
-import LoginAndSignUp from './pages/LoginAndSignUp';
+import "./App.css";
+import {Routes, Route } from "react-router-dom";
+import LoginAndSignUp from "./pages/LoginAndSignUp";
+import TopNavbar from "./Components/TopNavbar";
+import Dashboard from "./Components/Dashboard";
 function App() {
   return (
-    <div id="form-comp" className="flex items-center  justify-center" >
-<LoginAndSignUp/>
-    </div>
+<>
+    <Routes>
+     
+      <Route path="/" exact element={<LoginAndSignUp />} title="login" />
+      <Route path="/login" exact element={<LoginAndSignUp />} title="login" />
+      <Route path="/dashboard" exact element={<Dashboard />} title="login" />
+    </Routes>
+    </>
   );
 }
 
