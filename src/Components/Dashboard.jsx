@@ -1,14 +1,14 @@
-import React from 'react'
-import Table from './Table'
-import TopNavbar from './TopNavbar'
+import React from "react";
+import Table from "./Table";
+import TopNavbar from "./TopNavbar";
 
 function Dashboard() {
   return (
     <>
-        <TopNavbar />
-        <Table />
+      <TopNavbar />
+      <Table />
     </>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;

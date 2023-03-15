@@ -13,7 +13,6 @@ function LoginAndSignUp() {
   const [loginResponse, setLoginResponse] = useState({});
   const [registrationResponse, setRegistrationResponse] = useState({});
 
-
   const navigate = useNavigate();
 
   // ? USER REGISTRATION LYFECYCLE METHOD
@@ -29,14 +28,14 @@ function LoginAndSignUp() {
 
     if (formSignupSubmited) {
       postData();
-      setLoginOrSignUp('signUp')
+      setLoginOrSignUp("signUp");
     }
   }, [signUpData, formSignupSubmited]);
 
   // ? REGISTRATION HANDLER
   const handleRegistration = (e) => {
     e.preventDefault();
-  
+
     setFormSignupSubmited(true);
 
     console.log(signUpData);
