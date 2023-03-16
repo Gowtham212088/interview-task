@@ -19,21 +19,19 @@ export default function Table() {
 
   //! Editing students details using PUT method
   const [delReferance, setDelReferance] = useState({});
-  console.log(delReferance);
   const [referance, setReferance] = useState({});
-  console.log(referance);
   const [users, getUsers] = useState([]);
   const [updateResponse, SetUpdateResponse] = useState({});
   const [formSignupSubmited, setFormSignupSubmited] = useState(false);
   const [signUpData, setSignUpData] = useState({});
   const [updateOrRegistration, setUpdateorRegistration] = useState(false);
   const [registrationResponse, setRegistrationResponse] = useState({});
-  console.log(users);
-  console.log(updateResponse);
 
   const handleChange = (e) => {
     setReferance({ ...referance, [e.target.name]: e.target.value });
   };
+
+  // ?  EDIT USER BY ADMIN USING ID
 
   const handleSubmit = () => {
     fetch(`${Api}/editUsers/${referance._id}`, {
@@ -48,8 +46,9 @@ export default function Table() {
     });
   };
 
+  // ? DELETE USER BY ADMIN
+
   const handleDelete = (_id) => {
-    console.log(_id);
     fetch(`${Api}/deleteUsers/${_id}`, {
       method: "DELETE",
       body: JSON.stringify(referance),
@@ -83,7 +82,6 @@ export default function Table() {
   useEffect(() => {
     getUserDatas();
   }, [updateResponse, registrationResponse]);
-  console.log(signUpData);
 
   // ? USER REGISTRATION BY ADMIN LYFECYCLE METHOD
   useEffect(() => {
@@ -111,8 +109,6 @@ export default function Table() {
     e.preventDefault();
 
     setFormSignupSubmited(true);
-
-    console.log(signUpData);
   };
 
   return (

@@ -37,8 +37,6 @@ function LoginAndSignUp() {
     e.preventDefault();
 
     setFormSignupSubmited(true);
-
-    console.log(signUpData);
   };
 
   // ? USER LOGIN LYFECYCLE METHOD
@@ -64,10 +62,6 @@ function LoginAndSignUp() {
   const handleLogin = (e) => {
     e.preventDefault();
     setFormLoginSubmitted(true);
-    // if (loginResponse.message === "Login Successful") {
-
-    // }
-    console.log(loginData);
   };
 
   return (
