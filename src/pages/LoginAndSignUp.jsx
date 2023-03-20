@@ -48,7 +48,7 @@ function LoginAndSignUp({loginResponse, setLoginResponse}) {
         const response = await axios.post(`${Api}/login`, loginData);
         window.localStorage.setItem("token", response.data.token);
         setLoginResponse(response.data.message.name);
-
+console.log(loginResponse)
         navigate("/dashboard");
       } catch (error) {
         console.error(error);
