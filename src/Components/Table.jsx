@@ -3,24 +3,15 @@ import axios from "axios";
 import { Api } from "../utils/API";
 import { useNavigate } from "react-router-dom";
 
-export default function Table() {
+export default function Table({ users, getUsers, loginResponse, filterUser }) {
   const headers = ["Name", "Contact", "E-Mail", "DOB"];
-
-  const people = [
-    {
-      name: "Lindsay Walton",
-      contact: "8072953226",
-      email: "lindsay.walton@example.com",
-      dob: "01-01-2021",
-    },
-  ];
-
   const navigate = useNavigate();
 
   //! Editing students details using PUT method
   const [delReferance, setDelReferance] = useState({});
   const [referance, setReferance] = useState({});
-  const [users, getUsers] = useState([]);
+  console.log(referance);
+  // const [users, getUsers] = useState([]);
   const [updateResponse, SetUpdateResponse] = useState({});
   const [formSignupSubmited, setFormSignupSubmited] = useState(false);
   const [signUpData, setSignUpData] = useState({});
@@ -34,16 +25,38 @@ export default function Table() {
   // ?  EDIT USER BY ADMIN USING ID
 
   const handleSubmit = () => {
-    fetch(`${Api}/editUsers/${referance._id}`, {
-      method: "PUT",
-      body: JSON.stringify(referance),
+    // fetch(`${Api}/editUsers/${referance._id}`, {
+    //   method: "PUT",
+    //   body: JSON.stringify(referance),
+    //   headers: {
+    //     token: localStorage.getItem("token"),
+    //   },
+    // }).then((res) => {
+    //   SetUpdateResponse(res);
+    //   navigate("/dashboard");
+    // });
+
+    // var axios = require('axios');
+    var data = JSON.stringify(referance);
+
+    var config = {
+      method: "put",
+      url: `${Api}/editUsers/${referance._id}`,
       headers: {
-        "content-Type": "application/json",
+        token: localStorage.getItem("token"),
+        "Content-Type": "application/json",
       },
-    }).then((res) => {
-      SetUpdateResponse(res);
-      navigate("/dashboard");
-    });
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        SetUpdateResponse(response.data);
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   // ? DELETE USER BY ADMIN
@@ -53,7 +66,7 @@ export default function Table() {
       method: "DELETE",
       body: JSON.stringify(referance),
       headers: {
-        "content-Type": "application/json",
+        token: localStorage.getItem("token"),
       },
     }).then((res) => {
       SetUpdateResponse(res);
@@ -86,16 +99,37 @@ export default function Table() {
   // ? USER REGISTRATION BY ADMIN LYFECYCLE METHOD
   useEffect(() => {
     async function postData() {
-      try {
-        const response = await axios.post(
-          `${Api}/createUser/byAdmin`,
-          referance
-        );
-        setRegistrationResponse(response.data);
-        navigate("/dashboard");
-      } catch (error) {
-        console.error(error);
-      }
+      // try {
+      //   const response = await axios.post(
+      //     `${Api}/createUser/byAdmin`,
+      //     referance
+      //   );
+      //   setRegistrationResponse(response.data);
+      //   navigate("/dashboard");
+      // } catch (error) {
+      //   console.error(error);
+      // }
+
+      var data = JSON.stringify(referance);
+
+      var createData = {
+        method: "post",
+        url: `${Api}/createUser/byAdmin`,
+        headers: {
+          token: localStorage.getItem("token"),
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+
+      axios(createData)
+        .then(function (response) {
+          setRegistrationResponse(response.data);
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
 
     if (formSignupSubmited) {
@@ -113,8 +147,8 @@ export default function Table() {
 
   return (
     <div className="my-16">
-      <div className="px-4 overflow-x-auto sm:px-6 lg:px-8">
-        <div className="sm:flex px-24 sm:items-center">
+      <div className=" px-4 overflow-x-auto sm:px-6 lg:px-8">
+        <div className="sm:flex px-15 sm:flex-col flex justify-center flex-col md:flex-col lg:flex-row items-center md:items-center">
           <div className="sm:flex-auto">
             <h1 className="text-base font-semibold leading-6 text-gray-900">
               Name
@@ -154,12 +188,12 @@ export default function Table() {
             />
           </div>
 
-          <div className="sm:flex-auto">
+          <div className="sm:flex-auto ">
             <h1 className="text-base font-semibold leading-6 text-gray-900">
               DOB
             </h1>
             <input
-              className="border px-3 py-2 border-slate-300 rounded-md"
+              className="border px-3 sm:mb-4 lg:mb-0 py-2 border-slate-300 rounded-md"
               type={"date"}
               name={"dob"}
               value={referance?.dob || ""}
@@ -167,7 +201,7 @@ export default function Table() {
             />
           </div>
 
-          <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+          <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none flex items-center">
             {updateOrRegistration ? (
               <button
                 onClick={handleSubmit}
@@ -212,7 +246,7 @@ export default function Table() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {[...users].map((person, key) => (
+                  {[...filterUser].map((person, key) => (
                     <tr key={person.email}>
                       <td className="whitespace-nowrap py-4  pr-3 text-sm font-medium text-gray-900 sm:pl-0">
                         {person.name}

@@ -51,17 +51,17 @@ export default function TopNavbar() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
+                {/* <button
                   type="button"
                   className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
+                </button> */}
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
-                  <div>
+                  <div className="flex gap-3 items-center cursor">
                     <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                       <span className="sr-only">Open user menu</span>
                       <img
@@ -70,6 +70,7 @@ export default function TopNavbar() {
                         alt="dp"
                       />
                     </Menu.Button>
+                   {/* <span className="text-lg font-bold"> {loginResponse} </span> */}
                   </div>
                   <Transition
                     as={Fragment}

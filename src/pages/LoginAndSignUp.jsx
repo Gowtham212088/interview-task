@@ -3,14 +3,16 @@ import axios from "axios";
 import { Api } from "../utils/API";
 import { useNavigate } from "react-router-dom";
 
-function LoginAndSignUp() {
+function LoginAndSignUp({loginResponse, setLoginResponse}) {
   const [loginData, setLoginData] = useState({});
+  console.log(loginData);
   const [signUpData, setSignUpData] = useState({});
   const [loginOrSignUp, setLoginOrSignUp] = useState("login");
   const [formSignupSubmited, setFormSignupSubmited] = useState(false);
   const [formLoginSubmited, setFormLoginSubmitted] = useState(false);
 
-  const [loginResponse, setLoginResponse] = useState({});
+  // const [loginResponse, setLoginResponse] = useState({});
+  // console.log(loginResponse)
   const [registrationResponse, setRegistrationResponse] = useState({});
 
   const navigate = useNavigate();
@@ -45,7 +47,7 @@ function LoginAndSignUp() {
       try {
         const response = await axios.post(`${Api}/login`, loginData);
         window.localStorage.setItem("token", response.data.token);
-        setLoginResponse(response.data);
+        setLoginResponse(response.data.message.name);
 
         navigate("/dashboard");
       } catch (error) {
@@ -120,8 +122,7 @@ function LoginAndSignUp() {
                 name={"phone"}
                 onChange={(e) =>
                   setLoginData({
-                    ...loginData,
-                    [e.target.name]: e.target.value,
+                    ...loginData,[e.target.name]: e.target.value,
                   })
                 }
                 placeholder="Phone"
@@ -148,8 +149,8 @@ function LoginAndSignUp() {
             </div>
 
             <a className="flex justify-end text-[#ccffe6] cursor-pointer">
-              {" "}
-              Forgot Password ?{" "}
+              
+              Forgot Password ?
             </a>
 
             <div className="flex justify-end">
